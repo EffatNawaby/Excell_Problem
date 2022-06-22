@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>SHOP MIS /Buy View</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- logo -->
+  <link rel="shortcut icon" href="../Pictures/LOGO.png" type="image/x-icon">
+  <!-- CSS link -->
+  <link rel="stylesheet" href="../CSS/View.css" media="all">
+  <!-- CSS printing link -->
+  <link rel="stylesheet" href="../CSS/Print.css" media="print">
+  <!-- CSS dialog box style -->
+  <link rel="stylesheet" href="../cute-alert-master/style.css">
+  <!-- Bootstrap CSS link -->
+  <link rel="stylesheet" href="../bootstrap_4/css/bootstrap.min.css">
+  <!-- Fontawesome link -->
+  <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
+  <!-- Jqurey link -->
+  <script src="../bootstrap_4/jquery/dist/jquery.min.js"></script>
+  <!-- Bootstrap JS link-->
+  <script src="../bootstrap_4/js/bootstrap.min.js"></script>
+  <!-- pop up link -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <!-- Excel Converter -->
+  <script type="text/javascript" src="../bootstrap_4/js/xlsx.full.min.js"></script>
+</head>
+
+<body style="background-color: #f7f0e8; padding: 60px 40px;">
+  <!-- printing content -->
+  <div id="printContent">
+    <img src="../Pictures/LOGO.png" alt="">
+    <h1>SHOP MIS ACCOUNT BILL</h1>
+    <h3>Address: Afghanistan, Balkh, Mazar-e-sharif, Distric no.3</h3>
+    <h3>Phone Numbers: 0775340478 - 0775340478</h3>
+  </div>
+
+   <!-- Main content -->
+   <section class="content container-fluid">
+    <div class="row" style="text-align: center;">
+        <div class="col-sm-12">
+            <div class="titlebody">
+               <div class="title">
+                 <span id="title">BUY LIST</span>
+               </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- header for searching and buttons -->
+    <div class="box box-info" id="box">
+        <div class="box-header">
+            <div class="row" id="search">
+              <div class="btn-group print" style="float:left">
+                <div class="col-md-4">
+                   <label for="date-man">From Date</label>
+                  <input type="date" placeholder="From Date" style="width: 100%; margin: 2px;" id="date-man">
+              </div>
+              <div class="col-md-4">
+                  <label for="to-date-man">To Date</label>
+                  <input type="date" placeholder="To Date" style="width: 100%; margin: 2px;" id="to-date-man">
+              </div>
+              <div class="col-md-4">
+                <label for="searchByName">Name</label>
+                <input type="text" placeholder="Name" style="width: 100%; margin: 2px;" id="searchByName">
+              </div>
+              </div>
+              <div class="btn-group print" style="float:right; margin-left: 20px;" id="operations">
+                  <button class="btn" style="background-color: #f1ae21;"><span class="fa fa-search" title="search"></span></button>
+                  <button class="btn" onclick="PrintContent();" style="background-color: #ff8c00;"><span class="fa fa-print" title="Print"></span></button>
+                  <a href="Buy_Record.html" class="btn btn-primary" title="Add new Sale"><span class="fa fa-credit-card"></span></a>
+                  <button class="btn btn-success" title="Change To EXCEL" onclick="ExportToExcel('xlsx');"><span class="fa fa-file-excel-o"></span></button>
+                  <a href="#" class="btn" title="Back" style="background-color: #488a99;"><span class="fa fa-arrow-left"></span></a>
+              </div>
+            </div>
+    </div>
+
+        <!-- table -->
+        <div class="box-body" style="overflow: hidden; overflow-x: auto;">
+          <table id="buy-table" class="table table-bordered table-striped col-sm-12" style="margin-bottom: 0px !important;">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Barcode</th>
+                <th>Item Name</th>
+                <th>Item Type</th>
+                <th>Amount</th>
+                <th>Price</th>
+                <th>Delivery Price</th>
+                <th>Tax</th>
+                <th>Total Price</th>
+                <th>Salse Price</th>
+                <th>Price Per Item</th>
+                <th>Date</th>
+                <th class="print">Operations</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td class="print">
+                      <div class="btn-group">
+                        <!-- updating button -->
+                          <a data-toggle="modal" data-target="#updating" id="update"><button class="btn btn-primary btn-sm"><span class="fa fa-pencil"></span></button></a>
+                          <!-- updating modal -->
+                          <div class="modal" id="updating">
+                              <div class="modal-dialog modal-dialog-centered modal-sm">
+                                  <div class="modal-content">
+                                      <div class="modal-header" style="background-color: #0891bb; height: 180px;">
+                                        <img src="../Pictures/images-PhotoRoom (2).png" alt="" width="100px" height="100px" style="margin-left: 85px; margin-top: 20px;">
+                                      </div>
+                                      <div class="modal-body" style="text-align: center;">
+                                          <div class="row">
+                                              <h5 class="some-style" style="text-align: center; margin: 15px;">Are you sure you want to update these informations?</h5>
+                                              <button class="col-sm-12 col-md-4" type="button" id="buttons_up">Yes</button>
+                                              <button class="col-sm-12 col-md-4" type="button" id="buttons_up" data-dismiss="modal">No</button>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <!-- deleting button -->
+                          <a data-toggle="modal" data-target="#deleting" id="delete"><button class="btn btn-danger btn-sm"><span class="fa fa-remove"></span></button></a>
+                          <!-- deleting modal -->
+                          <div class="modal" id="deleting">
+                              <div class="modal-dialog modal-dialog-centered modal-sm">
+                                  <div class="modal-content">
+                                      <div class="modal-header" style="background-color: #d60303; height: 180px;">
+                                        <img src="../Pictures/images-PhotoRoom (2).png" alt="" width="100px" height="100px" style="margin-left: 85px; margin-top: 20px;">
+                                      </div>
+                                      <div class="modal-body" style="text-align: center;">
+                                          <div class="row">
+                                              <h5 class="some-style" style="text-align: center; margin: 15px;">Are you sure you want to delete these informations?</h5>
+                                              <button class="col-sm-12 col-md-4" type="button" id="buttons_del">Yes</button>
+                                              <button class="col-sm-12 col-md-4" type="button" id="buttons_del" data-dismiss="modal">No</button>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </td>
+              </tr>
+          </tbody>
+          </table>
+         </div>
+    </div>
+   </section>
+</body>
+
+<script>
+  function PrintContent() {
+    var printContents = document.getElementById("printContent").innerHTML;
+    var originalContent = document.body.innerHTML;
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContent;
+  }
+
+  function ExportToExcel(type, fn, dl) {
+     var elt = document.getElementById('buy-table');
+     // code for deleting specific column but it remove the entire column even from view page
+     elt.children[0].children[0].children[12].remove();
+     var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+     return dl ?
+       XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+       XLSX.writeFile(wb, fn || ('Registered_Buy.' + (type || 'xlsx')));
+  }
+
+  $(document).ready(() => {
+          $('#date-man').datepicker({
+              changeMonth: true,
+              changeYear: true
+          });
+      });
+  
+      $(document).ready(() => {
+          $('#to-date-man').datepicker({
+              changeMonth: true,
+              changeYear: true
+          });
+      });
+</script>
+
+</html>

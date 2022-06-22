@@ -1,0 +1,14 @@
+#ptintContent {
+    visibility: visible;
+    width: 100%;
+    height: fit-content;
+    text-align: center;
+}
+#printContent img {
+    width: 200px;
+    height: 200px;
+    text-align: center;
+}
+#printContent h1, h3 {
+    color: #1F4594;
+}
